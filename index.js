@@ -24,8 +24,6 @@ const lineClient = new line.messagingApi.MessagingApiClient({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
 });
 
-app.use(express.json());
-
 app.post("/line-webhook", line.middleware(lineConfig), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
     .then((result) => res.json(result))
@@ -50,6 +48,8 @@ const handleEvent = (event) => {
     messages: [echo],
   });
 };
+
+app.use(express.json());
 
 app.get("/users/:userId", async function (req, res) {
   const params = {
