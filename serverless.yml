@@ -4,9 +4,6 @@ frameworkVersion: '3'
 custom:
   tableName: 'users-table-${sls:stage}'
 
-plugins:
-  - serverless-dotenv-plugin
-
 provider:
   name: aws
   runtime: nodejs18.x
