@@ -21,7 +21,7 @@ const lineConfig = {
   channelSecret: process.env.LINE_CHANNEL_SECRET,
 };
 const lineClient = new line.messagingApi.MessagingApiClient({
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelAccessToken: process.env.LINE_ACCESS_TOKEN,
 });
 
 app.post("/line-webhook", line.middleware(lineConfig), (req, res) => {
