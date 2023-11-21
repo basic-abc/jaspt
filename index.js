@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+const line = require("@line/bot-sdk");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const {
   DynamoDBDocumentClient,
@@ -7,14 +10,46 @@ const {
 const express = require("express");
 const serverless = require("serverless-http");
 
-
 const app = express();
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const client = new DynamoDBClient();
 const dynamoDbClient = DynamoDBDocumentClient.from(client);
 
+const lineConfig = {
+  channelAccessToken: process.env.LINE_ACCESS_TOKEN,
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
+};
+const lineClient = new line.messagingApi.MessagingApiClient({
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+});
+
 app.use(express.json());
+
+app.post("/line-webhook", line.middleware(lineConfig), (req, res) => {
+  Promise.all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
+});
+
+const handleEvent = (event) => {
+  if (event.type !== "message" || event.message.type !== "text") {
+    // ignore non-text-message event
+    return Promise.resolve(null);
+  }
+
+  // create an echoing text message
+  const echo = { type: "text", text: event.message.text };
+
+  // use reply API
+  return lineClient.replyMessage({
+    replyToken: event.replyToken,
+    messages: [echo],
+  });
+};
 
 app.get("/users/:userId", async function (req, res) {
   const params = {
@@ -70,6 +105,5 @@ app.use((req, res, next) => {
     error: "Not Found",
   });
 });
-
 
 module.exports.handler = serverless(app);
