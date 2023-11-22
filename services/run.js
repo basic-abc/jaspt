@@ -32,7 +32,7 @@ const retrieveRun = async (threadId, run) => {
       if (retrievedRun.status === "completed") {
         break;
       }
-      await setTimeout(3000);
+      await setTimeout(1000);
     }
   } catch (error) {
     logger.error({ reason: "openai.beta.threads.runs.retrieve", error });
