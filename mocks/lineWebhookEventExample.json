@@ -1,0 +1,23 @@
+{
+    "level": "INFO",
+    "message": {
+        "type": "text",
+        "id": "482929381719932946",
+        "quoteToken": "nb9H2QYYYL9wmym9J37xWqY7KMtOJ69rsxP66zBoRAiflPlVzilDQuzxAi0gSavk7Cpmj6o0-VAMe9dsdeLGnBUDs7FcJDdQGQak5HK5W3FDBp4i6-chNG_zW9iQsLJZ547NnJRhlTknzK5auOt-Rw",
+        "text": "Do you like hamburgers?"
+    },
+    "service": "jaspt",
+    "timestamp": 1700679646690,
+    "xray_trace_id": "1-655e4fdf-25652b703cd5cb555a01dcde",
+    "type": "message",
+    "webhookEventId": "01HFW6FZYX3X6P9RV9SYYF9QMM",
+    "deliveryContext": {
+        "isRedelivery": false
+    },
+    "source": {
+        "type": "user",
+        "userId": "U743a65d257e0c22092b50039b1e36376"
+    },
+    "replyToken": "1c855d2f13164295a9bb77a9e60ec72f",
+    "mode": "active"
+}
