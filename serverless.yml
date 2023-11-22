@@ -25,6 +25,7 @@ provider:
     USERS_TABLE: ${self:custom.tableName}
     LINE_ACCESS_TOKEN: ${env:LINE_ACCESS_TOKEN}
     LINE_CHANNEL_SECRET: ${env:LINE_CHANNEL_SECRET}
+    OPEN_AI_KEY: ${env:OPEN_AI_KEY}
 
 functions:
   api:
