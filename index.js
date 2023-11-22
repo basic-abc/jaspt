@@ -9,6 +9,7 @@ const {
 } = require("@aws-sdk/lib-dynamodb");
 const express = require("express");
 const serverless = require("serverless-http");
+const { callAssistant } = require("./services/callAssistant");
 
 const app = express();
 
@@ -33,19 +34,19 @@ app.post("/line-webhook", line.middleware(lineConfig), (req, res) => {
     });
 });
 
-const handleEvent = (event) => {
+const handleEvent = async (event) => {
   if (event.type !== "message" || event.message.type !== "text") {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
-  // create an echoing text message
-  const echo = { type: "text", text: event.message.text };
+  const { response } = await callAssistant(event);
+  const lineReplyMessage = { type: "text", text: response };
 
   // use reply API
   return lineClient.replyMessage({
     replyToken: event.replyToken,
-    messages: [echo],
+    messages: [lineReplyMessage],
   });
 };
 
@@ -106,4 +107,4 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports.handler = serverless(app);
+module.exports = { handleEvent, handler: serverless(app) };
