@@ -12,7 +12,7 @@ const callAssistant = async (event) => {
   logger.info(event);
 
   const userMessage = event.message.text;
-  const userId = event.usedId;
+  const userId = event.source?.userId || "default";
 
   const assistant = await getAssistant();
   const threadId = await getThreadId(userId);
