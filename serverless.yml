@@ -41,8 +41,6 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
-          - AttributeName: ttl
-            AttributeType: N
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
