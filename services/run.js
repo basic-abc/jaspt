@@ -26,10 +26,14 @@ const createRun = async (threadId, assistantId) => {
 const retrieveRun = async (threadId, run) => {
   try {
     let retrievedRun;
-    while (run.status !== "completed") {
+    while (run.status !== "completed" && run.status !== "failed") {
       retrievedRun = await openai.beta.threads.runs.retrieve(threadId, run.id);
       logger.info(`Run status: ${retrievedRun.status}`);
       if (retrievedRun.status === "completed") {
+        break;
+      }
+      if (retrievedRun.status === "failed") {
+        logger.error({ message: "Run status failed", retrieveRun });
         break;
       }
       await setTimeout(1000);
