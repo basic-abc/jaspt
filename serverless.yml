@@ -4,6 +4,8 @@ frameworkVersion: '3'
 custom:
   tableName: 'users-table-${sls:stage}'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs18.x
