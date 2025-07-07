@@ -15,7 +15,9 @@ const callAssistant = async (event) => {
   const userId = event.source?.userId || "default";
 
   const assistant = await getAssistant();
+  // logger.info({ message: "assistant retrieved", assistant })
   const threadId = await getThreadId(userId);
+  // logger.info({ message: "threadId", threadId })
 
   try {
     const threadMessage = await openai.beta.threads.messages.create(threadId, {

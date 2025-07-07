@@ -15,7 +15,7 @@ const getAssistant = async () => {
         instructions:
           "You are a general purpose chat bot. Answer questions professionally and concisely, citing sources when offering advice. Your response cannot exceed 1 MB.",
         tools: [], // [{ type: "code_interpreter" }],
-        model: "gpt-4-1106-preview",
+        model: "gpt-4.1",
       });
     } catch (error) {
       logger.error({ reason: "openai.beta.assistants.create", error });

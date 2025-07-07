@@ -42,6 +42,8 @@ const handleEvent = async (event) => {
 
   const { response } = await callAssistant(event);
   const lineReplyMessage = { type: "text", text: response };
+  // disable reply API when using runner and enable this to see response
+  // console.log({ result: lineReplyMessage });
 
   // use reply API
   return lineClient.replyMessage({
